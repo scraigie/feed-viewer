@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">FeedViewer</string>
+    <string name="log_in_button">Log in</string>
+    <string name="log_in_error">Incorrect username and/or password</string>
+    <string name="login_password_hint">Password</string>
+    <string name="login_username_hint">Username</string>
 </resources>

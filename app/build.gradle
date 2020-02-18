@@ -56,7 +56,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-reactivestreams-ktx:$lifecycle_version"
-
+    implementation "com.android.support:design:$design_version"
 
     //rxjava
     implementation "io.reactivex.rxjava2:rxjava:$rxjava_version"
@@ -77,6 +77,8 @@ dependencies {
 
     testImplementation 'junit:junit:4.13'
     testImplementation "androidx.room:room-testing:$room_version"
+    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockito_version"
+    testImplementation 'android.arch.core:core-testing:1.1.1'
 
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
