@@ -25,7 +25,7 @@ class LoginViewModelTest {
     val rule = InstantTaskExecutorRule()
 
     private val stateObserverSpy = spy(Observer<LoginState> {  })
-    private val effectsObserverSpy = spy(Observer<Any> {  })
+    private val effectsObserverSpy = spy(Observer<LoginEffects> {  })
 
     @Before
     fun setUp() {

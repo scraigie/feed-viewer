@@ -5,6 +5,7 @@ import io.reactivex.Observable
 import org.junit.After
 import org.junit.Before
 import org.junit.Test
+import uk.co.simoncameron.feedviewer.data.db.UserRole
 import uk.co.simoncameron.feedviewer.data.preferences.AppPreferences
 import uk.co.simoncameron.feedviewer.data.user.UserRepository
 import uk.co.simoncameron.feedviewer.domain.auth.AuthenticationInteractor
@@ -35,7 +36,7 @@ class AuthenticationInteractorImplTest {
         val username = "user_1"
         val password = "password"
 
-        val domainUser = User(username, password)
+        val domainUser = User(username, password, UserRole.ROLE_NORMAL)
 
         whenever(mockUserRepository.getUser(username)) doReturn Observable.just(domainUser)
 
@@ -53,7 +54,7 @@ class AuthenticationInteractorImplTest {
         val username = "user_1"
         val password = "password"
 
-        val domainUser = User(username, "another password")
+        val domainUser = User(username, "another password", UserRole.ROLE_NORMAL)
 
         whenever(mockUserRepository.getUser(username)) doReturn Observable.just(domainUser)
 

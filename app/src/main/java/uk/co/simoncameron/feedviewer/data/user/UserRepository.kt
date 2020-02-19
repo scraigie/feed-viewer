@@ -22,11 +22,14 @@ interface UserRepository {
                 }
                 .map { it.mapToDomain() }
         }
+
+
     }
 
     fun UserEntity.mapToDomain() = User(
         username = username,
-        password = password
+        password = password,
+        role = role
     )
 }
 

@@ -49,7 +49,8 @@ class UserRepositoryImplTest {
             .assertValueCount(1)
             .assertValue(User(
                         username = username,
-                        password = password)
+                        password = password,
+                        role = UserRole.ROLE_NORMAL)
             )
             .dispose()
     }

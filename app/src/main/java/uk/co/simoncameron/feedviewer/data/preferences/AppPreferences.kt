@@ -15,6 +15,5 @@ interface AppPreferences {
         companion object {
             private const val CURRENT_USER_KEY = "CURRENT_USER_KEY"
         }
-
     }
 }
