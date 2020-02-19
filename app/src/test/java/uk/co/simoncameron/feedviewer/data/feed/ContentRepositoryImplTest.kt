@@ -64,9 +64,9 @@ class ContentRepositoryImplTest {
     }
 
     private val mockApiFeed = listOf(
-        ImageWidgetDTO(id = 1, widgetType = WidgetType.IMAGE, dataType = ContentDataType.NEWS, title = "item1 title", deepLink = "deeplink1",images = listOf()),
-        ImageWidgetDTO(id = 2, widgetType = WidgetType.IMAGE, dataType = ContentDataType.PREMIUM_NEWS, title = "item2 title", deepLink = "deeplink2",images = listOf()),
-        ImageWidgetDTO(id = 3, widgetType = WidgetType.IMAGE, dataType = ContentDataType.ADS, title = "item3 title", deepLink = "deeplink3",images = listOf()),
+        ImageWidgetDTO(id = 1, widgetType = WidgetType.IMAGE, dataType = ContentDataType.NEWS, title = "item1 title", deepLink = "deeplink1",images = listOf(), url = null),
+        ImageWidgetDTO(id = 2, widgetType = WidgetType.IMAGE, dataType = ContentDataType.PREMIUM_NEWS, title = "item2 title", deepLink = null ,images = listOf(), url = "deeplink2"),
+        ImageWidgetDTO(id = 3, widgetType = WidgetType.IMAGE, dataType = ContentDataType.ADS, title = "item3 title", deepLink = "deeplink3",images = listOf(), url = ""),
         SliiderWidgetDTO(widgetType = WidgetType.SLIIDER, sliiderImages = listOf(
             SliiderImageDTO(id = 1),
             SliiderImageDTO(id = 2),

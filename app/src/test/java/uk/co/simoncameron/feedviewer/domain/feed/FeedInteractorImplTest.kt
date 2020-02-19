@@ -96,7 +96,7 @@ class FeedInteractorImplTest {
     private fun sliiderItemFactory(vararg imageItems: ImageItem) =
         SliiderItem(images = imageItems.asList())
 
-    //TODO replace with concrete types?
+    //TODO replace with concrete types
     private fun List<FeedItem>.filterForDataTypes(vararg dataTypes: ContentDataType) =
         filter {
             when (it) {

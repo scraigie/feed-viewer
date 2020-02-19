@@ -58,17 +58,18 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-reactivestreams-ktx:$lifecycle_version"
     implementation "com.android.support:design:$design_version"
 
-    //rxjava
+    //rx
     implementation "io.reactivex.rxjava2:rxjava:$rxjava_version"
     implementation "io.reactivex.rxjava2:rxandroid:$rxandroid_version"
+    implementation 'com.jakewharton.rxrelay2:rxrelay:2.1.1'
 
-    //retrofit
+    //api
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
     implementation("com.squareup.okhttp3:logging-interceptor:4.4.0")
 
-    //room
+    //db
     implementation "androidx.room:room-runtime:$room_version"
     kapt "androidx.room:room-compiler:$room_version"
     implementation "androidx.room:room-rxjava2:$room_version"
@@ -76,8 +77,10 @@ dependencies {
     //di
     implementation "org.koin:koin-androidx-viewmodel:$koin_version"
 
+    //image
+    implementation 'com.github.bumptech.glide:glide:4.11.0'
+
     testImplementation 'junit:junit:4.13'
-    testImplementation "androidx.room:room-testing:$room_version"
     testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$mockito_version"
     testImplementation 'android.arch.core:core-testing:1.1.1'
 

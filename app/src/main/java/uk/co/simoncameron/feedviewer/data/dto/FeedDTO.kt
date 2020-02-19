@@ -20,7 +20,8 @@ data class ImageWidgetDTO(
     @SerializedName("type") val widgetType: WidgetType,
     @SerializedName("datatype") val dataType: ContentDataType,
     @SerializedName("title") val title: String,
-    @SerializedName("deep_link") val deepLink: String,
+    @SerializedName("deep_link") val deepLink: String?,
+    @SerializedName("url") val url: String?,
     @SerializedName("images") val images: List<ImageDTO>
 ) : FeedDTO()
 

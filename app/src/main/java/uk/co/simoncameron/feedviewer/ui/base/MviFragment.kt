@@ -1,6 +1,7 @@
 package uk.co.simoncameron.feedviewer.ui.base
 
 import android.os.Bundle
+import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 
@@ -13,12 +14,18 @@ abstract class MviFragment<VM: MviViewModel<*,E, S>, E: Effect, S: State> : Frag
 
     protected abstract val viewModel: VM
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         viewModel.apply {
+            init()
             stateLiveData.observe(viewLifecycleOwner, Observer<S> { render(it) })
             sideEffectLiveData.observe(viewLifecycleOwner, Observer<E> { handleSideEffect(it) })
         }
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+
     }
 
     override fun handleSideEffect(effect: E) { }

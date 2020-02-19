@@ -36,6 +36,8 @@ class LoginViewModelTest {
 
         RxAndroidPlugins.setInitMainThreadSchedulerHandler { h -> Schedulers.trampoline() }
         RxJavaPlugins.setComputationSchedulerHandler { h -> Schedulers.trampoline() }
+
+        loginViewModel.init()
     }
 
 

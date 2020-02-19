@@ -53,11 +53,10 @@ class LoginViewModel(private val authenticationInteractor: AuthenticationInterac
                         .map { LoginReducers.authenticated() }
                         .startWith(LoginReducers.loading())
                 }
-                .doOnNext{ println(it) }
         }
     }
 
     fun submit(username: String, password: String) {
-        actionsSubject.onNext(LoginActions.LoginClicked(username,password))
+        actionsSubject.accept(LoginActions.LoginClicked(username,password))
     }
 }

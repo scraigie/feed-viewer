@@ -33,11 +33,15 @@ class FeedViewModelTest {
 
         feedViewModel = FeedViewModel(mockFeedInteractor)
 
+//        whenever(mockFeedInteractor.loadContent()) doReturn Observable.empty()
+
         feedViewModel.stateLiveData.observeForever(stateObserverSpy)
         feedViewModel.sideEffectLiveData.observeForever(effectsObserverSpy)
 
         RxAndroidPlugins.setInitMainThreadSchedulerHandler { h -> Schedulers.trampoline() }
         RxJavaPlugins.setComputationSchedulerHandler { h -> Schedulers.trampoline() }
+
+        feedViewModel.init()
     }
 
     @After

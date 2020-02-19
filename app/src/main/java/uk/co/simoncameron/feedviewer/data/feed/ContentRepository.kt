@@ -34,7 +34,7 @@ interface ContentRepository {
         private fun ImageWidgetDTO.toImageItem() =
             ImageItem(
                 title = title,
-                deepLink = deepLink,
+                deepLink = deepLink ?: url ?: "",  // Some consistency from the api would be nice! :P
                 images = images.map { Image(url = it.imageUrl ) },
                 dataType = dataType)
 
@@ -45,7 +45,12 @@ interface ContentRepository {
                 images = feedList
                     .filter { it is ImageWidgetDTO && it.id in imageIds }
                     .map { it as ImageWidgetDTO }
+                    .map { it.copy(images = it.images.take(MAX_IMAGES_IN_SLIIDER_ITEM)) }
                     .map { it.toImageItem() })
+        }
+
+        companion object {
+            private const val MAX_IMAGES_IN_SLIIDER_ITEM = 1
         }
     }
 }
