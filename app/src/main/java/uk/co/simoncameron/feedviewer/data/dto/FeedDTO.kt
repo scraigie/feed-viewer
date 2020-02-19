@@ -4,17 +4,16 @@ import com.google.gson.annotations.SerializedName
 import uk.co.simoncameron.feedviewer.data.common.ContentDataType
 import uk.co.simoncameron.feedviewer.data.common.WidgetType
 
+data class FeedResponse(
+    val items: List<FeedDTO>
+)
+
 sealed class FeedDTO
 
-data class SliiderDTO(
-    @SerializedName("id") val id: Int,
+data class SliiderWidgetDTO(
     @SerializedName("type") val widgetType: WidgetType,
     @SerializedName("images") val sliiderImages: List<SliiderImageDTO>
 ) : FeedDTO()
-
-data class SliiderImageDTO(
-    @SerializedName("id") val id: Int
-)
 
 data class ImageWidgetDTO(
     @SerializedName("id") val id: Int,
@@ -28,4 +27,8 @@ data class ImageWidgetDTO(
 data class ImageDTO(
     @SerializedName("id") val id: Int,
     @SerializedName("url") val imageUrl: String
+)
+
+data class SliiderImageDTO(
+    @SerializedName("id") val id: Int
 )

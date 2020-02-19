@@ -2,10 +2,8 @@ package uk.co.simoncameron.feedviewer.domain.feed
 
 import com.nhaarman.mockitokotlin2.doReturn
 import com.nhaarman.mockitokotlin2.mock
-import com.nhaarman.mockitokotlin2.reset
 import com.nhaarman.mockitokotlin2.whenever
 import io.reactivex.Observable
-import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import uk.co.simoncameron.feedviewer.data.common.ContentDataType
@@ -13,10 +11,7 @@ import uk.co.simoncameron.feedviewer.data.db.UserRole
 import uk.co.simoncameron.feedviewer.data.feed.ContentRepository
 import uk.co.simoncameron.feedviewer.data.preferences.AppPreferences
 import uk.co.simoncameron.feedviewer.data.user.UserRepository
-import uk.co.simoncameron.feedviewer.domain.pojo.FeedItem
-import uk.co.simoncameron.feedviewer.domain.pojo.ImageItem
-import uk.co.simoncameron.feedviewer.domain.pojo.SliiderItem
-import uk.co.simoncameron.feedviewer.domain.pojo.User
+import uk.co.simoncameron.feedviewer.domain.pojo.*
 
 class FeedInteractorImplTest {
 
@@ -30,17 +25,7 @@ class FeedInteractorImplTest {
 
     @Before
     fun setUp() {
-
         feedInteractor = FeedInteractor.Impl(mockAppPreferences, mockUserRepository, mockContentRepository)
-
-//        RxJavaPlugins.setComputationSchedulerHandler { h -> Schedulers.trampoline() }
-    }
-
-    @After
-    fun tearDown() {
-
-        reset(mockUserRepository, mockContentRepository)
-//        RxJavaPlugins.reset()
     }
 
     @Test
@@ -102,8 +87,11 @@ class FeedInteractorImplTest {
         )
     )
 
-    private fun imageItemFactory(dataType: ContentDataType) =
-        ImageItem(dataType = dataType)
+    private fun imageItemFactory(dataType: ContentDataType,
+                                 title: String = "title",
+                                 deepLink: String = "deepLink",
+                                 images: List<Image> = listOf()) =
+        ImageItem(title = title,dataType = dataType, deepLink = deepLink, images = images)
 
     private fun sliiderItemFactory(vararg imageItems: ImageItem) =
         SliiderItem(images = imageItems.asList())

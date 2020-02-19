@@ -1,8 +1,10 @@
 package uk.co.simoncameron.feedviewer.domain
 
-import com.nhaarman.mockitokotlin2.*
+import com.nhaarman.mockitokotlin2.doReturn
+import com.nhaarman.mockitokotlin2.mock
+import com.nhaarman.mockitokotlin2.verify
+import com.nhaarman.mockitokotlin2.whenever
 import io.reactivex.Observable
-import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import uk.co.simoncameron.feedviewer.data.db.UserRole
@@ -23,11 +25,6 @@ class AuthenticationInteractorImplTest {
     @Before
     fun setUp() {
         authenticationInteractor = AuthenticationInteractor.Impl(mockUserRepository, mockAppPreferences)
-    }
-
-    @After
-    fun tearDown() {
-        reset(mockUserRepository)
     }
 
     @Test

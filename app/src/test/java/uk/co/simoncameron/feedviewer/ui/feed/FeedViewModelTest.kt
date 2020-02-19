@@ -79,10 +79,6 @@ class FeedViewModelTest {
 
     private val mockedValidContent =
         listOf<FeedItem>( mock(), mock(), mock() )
-//            feedItemFactory(ContentDataType.ADS),
-//            feedItemFactory(ContentDataType.NEWS),
-//            feedItemFactory(ContentDataType.PREMIUM_NEWS)
-//        )
 
     private fun feedStateFactory(
         isLoading: Boolean = false,
@@ -90,5 +86,5 @@ class FeedViewModelTest {
         retryVisible: Boolean = false) = FeedState(isLoading, content, retryVisible)
 
     private fun feedItemFactory(dataType: ContentDataType = ContentDataType.NEWS) =
-        ImageItem(dataType)
+        ImageItem("title", "deepLink", listOf(), dataType)
 }

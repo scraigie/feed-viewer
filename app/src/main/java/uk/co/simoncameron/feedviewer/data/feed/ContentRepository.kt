@@ -5,8 +5,9 @@ import io.reactivex.schedulers.Schedulers
 import uk.co.simoncameron.feedviewer.data.api.ApiService
 import uk.co.simoncameron.feedviewer.data.dto.FeedDTO
 import uk.co.simoncameron.feedviewer.data.dto.ImageWidgetDTO
-import uk.co.simoncameron.feedviewer.data.dto.SliiderDTO
+import uk.co.simoncameron.feedviewer.data.dto.SliiderWidgetDTO
 import uk.co.simoncameron.feedviewer.domain.pojo.FeedItem
+import uk.co.simoncameron.feedviewer.domain.pojo.Image
 import uk.co.simoncameron.feedviewer.domain.pojo.ImageItem
 import uk.co.simoncameron.feedviewer.domain.pojo.SliiderItem
 
@@ -18,27 +19,33 @@ interface ContentRepository {
         override fun getFeedContent(): Observable<List<FeedItem>> {
             return api.getFeed()
                 .subscribeOn(Schedulers.io())
+                .map { it.items }
                 .map { feedList ->
                     feedList.map { feedItem ->
                         when(feedItem) {
                             is ImageWidgetDTO -> feedItem.toImageItem()
-                            is SliiderDTO -> feedItem.toSliiderItem(feedList)
+                            is SliiderWidgetDTO -> feedItem.toSliiderItem(feedList)
                         }
                     }
                 }
                 .toObservable()
         }
 
-        private fun ImageWidgetDTO.toImageItem() = ImageItem(dataType)
+        private fun ImageWidgetDTO.toImageItem() =
+            ImageItem(
+                title = title,
+                deepLink = deepLink,
+                images = images.map { Image(url = it.imageUrl ) },
+                dataType = dataType)
 
-        private fun SliiderDTO.toSliiderItem(feedList: List<FeedDTO>): SliiderItem {
+        private fun SliiderWidgetDTO.toSliiderItem(feedList: List<FeedDTO>): SliiderItem {
             val imageIds = sliiderImages.map { it.id }
 
             return SliiderItem(
                 images = feedList
                     .filter { it is ImageWidgetDTO && it.id in imageIds }
                     .map { it as ImageWidgetDTO }
-                    .map { ImageItem(it.dataType) })
+                    .map { it.toImageItem() })
         }
     }
 }

@@ -39,10 +39,14 @@ object FeedReducers {
     fun failureReducer(): Reducer<FeedState> = { it.copy(isLoading = false, retryVisible = true) }
 }
 
-class FeedViewModel(private val feedInteractor: FeedInteractor): MviViewModel<FeedActions, FeedEffects, FeedState>(FeedState.INITIAL_STATE) {
+class FeedViewModel(private val feedInteractor: FeedInteractor): MviViewModel<FeedActions, FeedEffects, FeedState>(INITIAL_STATE) {
 
     fun loadContent() {
         actionsSubject.onNext(FeedActions.LoadContent)
+    }
+
+    fun itemClicked(url: String) {
+        actionsSubject.onNext(FeedActions.FeedClicked(url))
     }
 
     override val actionProcessor = ObservableTransformer<FeedActions, Reducer<FeedState>>{

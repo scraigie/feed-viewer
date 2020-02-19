@@ -3,7 +3,6 @@ package uk.co.simoncameron.feedviewer.data.preferences
 import android.content.SharedPreferences
 import com.nhaarman.mockitokotlin2.*
 import org.hamcrest.CoreMatchers.equalTo
-import org.junit.After
 import org.junit.Assert.assertThat
 import org.junit.Before
 import org.junit.Test
@@ -19,11 +18,6 @@ class AppPreferencesImplTest {
     @Before
     fun setUp() {
         appPreferences = AppPreferences.Impl(sharedPreferences)
-    }
-
-    @After
-    fun tearDown() {
-        reset(sharedPreferences)
     }
 
     @Test

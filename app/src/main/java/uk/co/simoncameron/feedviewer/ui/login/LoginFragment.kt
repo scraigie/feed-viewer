@@ -21,6 +21,7 @@ class LoginFragment : MviFragment<LoginViewModel, LoginEffects, LoginState>() {
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
+
         login_button.setOnClickListener {
             val username = username.text ?: ""
             val password = password.text ?: ""

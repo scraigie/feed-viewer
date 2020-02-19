@@ -3,6 +3,8 @@ package uk.co.simoncameron.feedviewer
 import android.content.Context
 import android.content.SharedPreferences
 import com.google.gson.GsonBuilder
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -11,7 +13,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 import uk.co.simoncameron.feedviewer.data.api.ApiService
 import uk.co.simoncameron.feedviewer.data.api.FeedDeserializer
 import uk.co.simoncameron.feedviewer.data.db.AppDatabase
-import uk.co.simoncameron.feedviewer.data.dto.FeedDTO
+import uk.co.simoncameron.feedviewer.data.dto.FeedResponse
+import uk.co.simoncameron.feedviewer.data.feed.ContentRepository
 import uk.co.simoncameron.feedviewer.data.preferences.AppPreferences
 import uk.co.simoncameron.feedviewer.data.user.UserRepository
 import uk.co.simoncameron.feedviewer.domain.auth.AuthenticationInteractor
@@ -26,13 +29,20 @@ val appModule = module {
     factory<AuthenticationInteractor> { AuthenticationInteractor.Impl(get(), get()) }
     factory<FeedInteractor> { FeedInteractor.Impl(get(), get(), get()) }
     factory<UserRepository> { UserRepository.Impl(get()) }
+    factory<ContentRepository> { ContentRepository.Impl(get()) }
 }
 
 val networkModule = module {
     single<ApiService> {
         Retrofit.Builder()
+            .client(
+                OkHttpClient.Builder()
+                .addInterceptor(HttpLoggingInterceptor().apply{
+                    setLevel(HttpLoggingInterceptor.Level.BASIC)
+                })
+                .build())
             .addConverterFactory(GsonConverterFactory.create(
-                GsonBuilder().registerTypeAdapter(FeedDTO::class.java, FeedDeserializer()).create()))
+                GsonBuilder().registerTypeAdapter(FeedResponse::class.java, FeedDeserializer()).create()))
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .baseUrl(BuildConfig.API_URL)
             .build()

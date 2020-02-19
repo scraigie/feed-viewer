@@ -8,12 +8,10 @@ import io.reactivex.plugins.RxJavaPlugins
 import io.reactivex.schedulers.Schedulers
 import org.junit.After
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import uk.co.simoncameron.feedviewer.data.db.UserEntity
 import uk.co.simoncameron.feedviewer.data.db.UserRole
 import uk.co.simoncameron.feedviewer.domain.pojo.User
-import uk.co.simoncameron.feedviewer.testutils.TestSchedulerRule
 
 class UserRepositoryImplTest {
 
@@ -21,16 +19,12 @@ class UserRepositoryImplTest {
 
     private val userDao: UserDao = mock()
 
-    @Rule
-    @JvmField
-    val testSchedulerRule = TestSchedulerRule()
 
     @Before
     fun setUp() {
         userRepository = UserRepository.Impl(userDao)
 
         RxJavaPlugins.setIoSchedulerHandler { h -> Schedulers.trampoline() }
-
     }
 
     @After
