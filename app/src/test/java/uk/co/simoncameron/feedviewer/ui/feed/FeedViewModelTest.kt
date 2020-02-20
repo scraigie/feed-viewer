@@ -11,10 +11,8 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
-import uk.co.simoncameron.feedviewer.data.common.ContentDataType
 import uk.co.simoncameron.feedviewer.domain.feed.FeedInteractor
 import uk.co.simoncameron.feedviewer.domain.pojo.FeedItem
-import uk.co.simoncameron.feedviewer.domain.pojo.ImageItem
 
 class FeedViewModelTest {
 
@@ -32,8 +30,6 @@ class FeedViewModelTest {
     fun setUp() {
 
         feedViewModel = FeedViewModel(mockFeedInteractor)
-
-//        whenever(mockFeedInteractor.loadContent()) doReturn Observable.empty()
 
         feedViewModel.stateLiveData.observeForever(stateObserverSpy)
         feedViewModel.sideEffectLiveData.observeForever(effectsObserverSpy)
@@ -77,6 +73,7 @@ class FeedViewModelTest {
 
         inOrder(stateObserverSpy, effectsObserverSpy) {
             verify(stateObserverSpy).onChanged(feedStateFactory(isLoading = true))
+            verify(effectsObserverSpy).onChanged(FeedEffects.ContentError)
             verify(stateObserverSpy).onChanged(feedStateFactory(isLoading = false, retryVisible = true))
         }
     }
@@ -88,7 +85,4 @@ class FeedViewModelTest {
         isLoading: Boolean = false,
         content: List<FeedItem> = listOf(),
         retryVisible: Boolean = false) = FeedState(isLoading, content, retryVisible)
-
-    private fun feedItemFactory(dataType: ContentDataType = ContentDataType.NEWS) =
-        ImageItem("title", "deepLink", listOf(), dataType)
 }

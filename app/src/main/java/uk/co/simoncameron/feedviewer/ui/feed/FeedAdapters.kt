@@ -100,19 +100,20 @@ class ImageWidgetViewHolder(parent: ViewGroup, private val onClick: (String) -> 
         }
     }
 
-    fun LinearLayout.addImages(images: List<Image>) {
+    private fun LinearLayout.addImages(images: List<Image>) {
         // a proper solution should be adding views to the constraint layout.
         // I was having some problems and didn't have time to dwell on it!
 
         removeAllViews()
 
-        images.forEach {
-            val imageView = ImageView(context)
-            val lp = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT)
-            lp.weight = 1f
-            imageView.layoutParams = lp
-            imagewidget_imageslayout.addView(imageView)
-            imageView.load(it.url)
+        images.forEach { imageItem ->
+            ImageView(context).let {
+                it.layoutParams = LinearLayout.LayoutParams(0, LinearLayout.LayoutParams.MATCH_PARENT).apply {
+                    weight = 1f
+                }
+                imagewidget_imageslayout.addView(it)
+                it.load(imageItem.url)
+            }
         }
     }
 }
@@ -134,9 +135,8 @@ class SliiderWidgetViewHolder(parent: ViewGroup, private val onClick: (String) -
     override fun onBind(item: SliiderItem) {
         adapter.setData(item.images)
 
-        // logic should exist in viewmodel
         Observable.interval(3, TimeUnit.SECONDS)
-            .take(item.images.size.toLong())
+            .take(item.images.size.toLong() - 1)
             .scan(0) { previous, _  -> previous + 1 }
             .doOnNext { itemView.sliider_list?.smoothScrollToPosition(it) }
             .subscribe()
